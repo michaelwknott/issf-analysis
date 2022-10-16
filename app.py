@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 st.set_page_config(
-    page_title = "Rapid FIre Pistol Analysis",
+    page_title = "Rapid Fire Pistol Analysis",
     page_icon=":dart:",
     layout="wide"
 )
@@ -24,34 +24,66 @@ def load_data_from_database():
 
 df = load_data_from_database()
 
-st.sidebar.header("Filter Data:")
+st.title(":dart: ISSF Results Analysis")
 
-championship = st.sidebar.multiselect(
+championship_names = sorted((
+    df["championship_name"]
+    .unique()
+))
+
+championships = st.sidebar.multiselect(
     "Select the championship(s):",
-    options = df["championship_name"].unique(),
-    default = df["championship_name"].unique(),
+    options = championship_names,
+    default = championship_names,
 )
 
-championship_years = df["championship_year"].sort_values().unique()
-years = st.sidebar.select_slider(
-    "Select year range:",
+championship_years = sorted((
+    df["championship_year"]
+    .loc[df["championship_name"].isin(championships)]
+    .unique()
+))
+
+years = st.sidebar.select_slider("Select year range:",
     options = championship_years,
     value = (min(championship_years), max(championship_years)),
 )
 
-event = st.sidebar.selectbox(
+championship_events = sorted((
+    df["championship_event"]
+    .loc[
+        df["championship_name"].isin(championships)
+        & df["championship_year"].isin(years)
+    ]
+    .unique()
+))
+
+events = st.sidebar.multiselect(
     "Select the event:",
-    options = df["championship_event"].unique(),
+    options = championship_events,
+    default = championship_events,
 )
 
-athlete =  st.sidebar.selectbox(
+athletes = sorted((
+    df["name"]
+    .loc[
+        df["championship_name"].isin(championships)
+        & df["championship_year"].isin(years)
+        & df["championship_event"].isin(events)
+    ]
+    .unique()
+))
+
+athlete = st.sidebar.selectbox(
     "Select athlete:",
-    options = df["name"].sort_values().unique(),
+    options = athletes,
 )
 
-
-st.title(":dart: ISSF Results Analysis")
-
-st.dataframe(df)
-
-# TO DO add filter options to dataframe
+st.dataframe(
+     df[
+       (df["championship_name"].isin(championships))
+        & (df["championship_year"] >= years[0])
+        & (df["championship_year"] <= years[1])
+        & (df["championship_event"].isin(events))
+        & (df["name"] == athlete)
+    ]
+)
