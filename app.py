@@ -26,41 +26,57 @@ df = load_data_from_database()
 
 st.title(":dart: ISSF Results Analysis")
 
-with st.form(key="issf_filters"):
+championship_names = sorted((
+    df["championship_name"]
+    .unique()
+))
 
-    championship = st.multiselect(
-        "Select the championship(s):",
-        options = df["championship_name"].unique(),
-        default = df["championship_name"].unique(),
-    )
+championship = st.multiselect(
+    "Select the championship(s):",
+    options = championship_names,
+    default = championship_names,
+)
 
-    championship_years = (df["championship_year"].sort_values().unique())
-    years = st.select_slider("Select year range:",
-        options = championship_years,
-        value = (min(championship_years), max(championship_years)),
+championship_years = sorted((
+    df["championship_year"]
+    .loc[df["championship_name"].isin(championship)]
+    .unique()
+))
 
-    )
+years = st.select_slider("Select year range:",
+    options = championship_years,
+    value = (min(championship_years), max(championship_years)),
+)
 
-    event = st.multiselect(
-        "Select the event:",
-        options = df["championship_event"].unique(),
-        default = df["championship_event"].unique(),
-    )
+championship_events = sorted((
+    df["championship_event"]
+    .loc[df["championship_year"].isin(years)]
+    .unique()
+))
 
-    athlete = st.selectbox(
-        "Select athlete:",
-        options = df["name"].unique(),
-    )
+events = st.multiselect(
+    "Select the event:",
+    options = championship_events,
+    default = championship_events,
+)
 
-    submit_button = st.form_submit_button(label="Submit filters")
+athletes = sorted((
+    df["name"]
+    .loc[df["championship_event"].isin(events)]
+    .unique()
+))
 
-    if submit_button:
-        st.dataframe(
-            df[
-                (df["championship_event"].isin(championship))
-                & (df["championship_year"] >= years[0])
-                & (df["championship_year"] >= years[1])
-                & (df["championship_event"].isin(event))
-                & (df["name"] == athlete)
-            ]
-        )
+athlete = st.selectbox(
+    "Select athlete:",
+    options = athletes,
+)
+
+st.dataframe(
+     df[
+       (df["championship_name"].isin(championship))
+        & (df["championship_year"] >= years[0])
+        & (df["championship_year"] <= years[1])
+        & (df["championship_event"].isin(events))
+        & (df["name"] == athlete)
+    ]
+)
