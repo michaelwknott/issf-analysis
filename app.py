@@ -51,24 +51,26 @@ years = st.sidebar.select_slider("Select year range:",
 championship_events = sorted((
     df["championship_event"]
     .loc[
-        df["championship_name"].isin(championships)
-        & df["championship_year"].isin(years)
+        (df["championship_name"].isin(championships))
+        & (df["championship_year"] >= years[0])
+        & (df["championship_year"] <= years[1])
     ]
     .unique()
 ))
 
-events = st.sidebar.multiselect(
+event = st.sidebar.selectbox(
     "Select the event:",
     options = championship_events,
-    default = championship_events,
+    index = 0,
 )
 
 athletes = sorted((
     df["name"]
     .loc[
-        df["championship_name"].isin(championships)
-        & df["championship_year"].isin(years)
-        & df["championship_event"].isin(events)
+        (df["championship_name"].isin(championships))
+        & (df["championship_year"] >= years[0])
+        & (df["championship_year"] <= years[1])
+        & (df["championship_event"] == event)
     ]
     .unique()
 ))
@@ -83,7 +85,7 @@ st.dataframe(
        (df["championship_name"].isin(championships))
         & (df["championship_year"] >= years[0])
         & (df["championship_year"] <= years[1])
-        & (df["championship_event"].isin(events))
+        & (df["championship_event"] == event)
         & (df["name"] == athlete)
     ]
 )
