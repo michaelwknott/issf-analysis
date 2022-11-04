@@ -21,13 +21,11 @@ st.set_page_config(
 
 
 @st.cache
-def load_data_from_database():
-    db_url = os.environ["DATABASE_URL"]
-    conn = sqlite3.connect(db_url)
-    return pd.read_sql("SELECT * FROM competitionresult", conn)
+def load_data_from_csv():
+    return pd.read_csv("data/issf_results.csv")
 
 
-df = load_data_from_database()
+df = load_data_from_csv()
 
 st.sidebar.title("Filters:")
 championship_names = sorted((
