@@ -10,7 +10,6 @@ load_dotenv()
 
 
 DEFAULT_CHAMPIONSHIP = 4
-DEFAULT_MIN_YEAR = 2005
 DEFAULT_EVENT = 5 #25m Rapid Fire Pistol Men
 
 st.set_page_config(
@@ -47,7 +46,7 @@ championship_years = sorted((
 
 years = st.sidebar.select_slider("Select year range:",
     options = championship_years,
-    value = (DEFAULT_MIN_YEAR, max(championship_years)),
+    value = (min(championship_years), max(championship_years)),
 )
 
 championship_events = sorted((
