@@ -15,7 +15,7 @@ The current data source includes results from 1896-2022. For 2022, the following
 ## Instructions
 To run the app locally, utilse the following steps.
 
-Clone to repo:
+Clone the repo:
 
 `git@github.com:michaelwknott/issf-analysis.git`
 
