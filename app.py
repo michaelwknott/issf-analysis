@@ -26,7 +26,7 @@ championship_names = sorted((
 ))
 
 championship = st.sidebar.selectbox(
-    "Select the championship(s):",
+    "Select the championship:",
     options = championship_names,
     index = DEFAULT_CHAMPIONSHIP,
 )
