@@ -1,6 +1,8 @@
 # issf-analysis
 A streamlit app to analysis individual athlete's ISSF results.
 
+![issf-analysis-streamlit](https://user-images.githubusercontent.com/17526532/227800485-ea79e23e-aba2-4449-811a-c5b96036f769.png)
+
 ## Results Data
 The current data source includes results from 1896-2022. For 2022, the following events are included in the data source:
 + World Cup,LONATO,2022
