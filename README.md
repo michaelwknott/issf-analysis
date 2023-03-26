@@ -1,7 +1,10 @@
 # issf-analysis
 A streamlit app to analysis individual athlete's ISSF results.
-The current data source includes results from 1896-2022.
-At the time of app deployment the following events in 2022 are included in the data source:
+
+![issf-analysis-streamlit](https://user-images.githubusercontent.com/17526532/227800485-ea79e23e-aba2-4449-811a-c5b96036f769.png)
+
+## Results Data
+The current data source includes results from 1896-2022. For 2022, the following events are included in the data source:
 + World Cup,LONATO,2022
 + World Cup,LIMA,2022
 + World Cup,CAIRO,2022
@@ -10,3 +13,30 @@ At the time of app deployment the following events in 2022 are included in the d
 + World Cup,CHANGWON,2022
 + World Cup,BAKU,2022
 + European Championships,HAMAR,2022
+
+## Instructions
+To run the app locally, utilse the following steps.
+
+Clone the repo:
+
+`git@github.com:michaelwknott/issf-analysis.git`
+
+Change into the issf-analysis directory:
+
+`cd issf-analysis`
+
+Create a virtual environment:
+
+`python -m venv .venv --prompt .`
+
+Activate the virtual environment:
+
+`source .venv/bin/activate`
+
+Install dependencies:
+
+`python -m pip install -r requirements.txt`
+
+Run the Streamlit app:
+
+`streamlit run app.py`
