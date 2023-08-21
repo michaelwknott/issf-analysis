@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 
-@st.cache
+@st.cache_data
 def load_data_from_csv():
     return pd.read_csv("data/issf_results.csv")
 
