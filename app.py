@@ -139,9 +139,7 @@ fig1 = px.box(
         ).update_traces(marker=dict(color='red'))
 
 fig1.update_layout(
-        title_x=0.8,
-        title_xanchor="center",
-        xaxis_title="",
+        xaxis_title="Championship Year",
         yaxis_title="Qualification Score",
         height=800,
         font=dict(
